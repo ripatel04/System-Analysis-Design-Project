@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ANIMALS">
+          <Key>
+            <PropertyRef Name="Animal_ID" />
+          </Key>
+          <Property Name="Animal_ID" Type="int" Nullable="false" />
+          <Property Name="Animal_Name" Type="nvarchar" MaxLength="25" />
+          <Property Name="Date_Of_Birth" Type="date" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="Weight" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Vaccination" Type="bit" />
+        </EntityType>
+        <EntityType Name="TICKETS">
+          <Key>
+            <PropertyRef Name="Ticket_ID" />
+          </Key>
+          <Property Name="Ticket_ID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="25" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="isTicketValid" Type="bit" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Last_Name" Type="nvarchar" MaxLength="25" />
+          <Property Name="Name" Type="nvarchar" MaxLength="25" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="25" />
+          <Property Name="Username" Type="nvarchar" MaxLength="25" />
+          <Property Name="Password" Type="nvarchar" MaxLength="25" />
+          <Property Name="EmployeeType" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="VISITORS">
+          <Key>
+            <PropertyRef Name="Visitors_ID" />
+          </Key>
+          <Property Name="Visitors_ID" Type="int" Nullable="false" />
+          <Property Name="Visitors_LName" Type="nvarchar" MaxLength="25" />
+          <Property Name="Visitors_Name" Type="nvarchar" MaxLength="25" />
+          <Property Name="Date_Of_Birth" Type="date" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="13" />
+        </EntityType>
+        <EntityType Name="VISITORS_ON_TICKET">
+          <Key>
+            <PropertyRef Name="Visitors_on_Ticket_ID" />
+          </Key>
+          <Property Name="Visitors_on_Ticket_ID" Type="int" Nullable="false" />
+          <Property Name="Visitors_ID" Type="int" />
+          <Property Name="Ticket_ID" Type="int" />
+          <Property Name="Ticket_Date" Type="date" />
+          <Property Name="Ticket_Amount" Type="int" />
+        </EntityType>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="ANIMALS" EntityType="Self.ANIMALS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TICKETS" EntityType="Self.TICKETS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VISITORS" EntityType="Self.VISITORS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VISITORS_ON_TICKET" EntityType="Self.VISITORS_ON_TICKET" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ANIMAL">
+          <Key>
+            <PropertyRef Name="Animal_ID" />
+          </Key>
+          <Property Name="Animal_ID" Type="Int32" Nullable="false" />
+          <Property Name="Animal_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Date_Of_Birth" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Weight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Vaccination" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TICKET">
+          <Key>
+            <PropertyRef Name="Ticket_ID" />
+          </Key>
+          <Property Name="Ticket_ID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="isTicketValid" Type="Boolean" />
+          <NavigationProperty Name="VISITORS_ON_TICKET" Relationship="Database1Model.VISITORS_ON_TICKETTICKET" FromRole="TICKET" ToRole="VISITORS_ON_TICKET" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Last_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeType" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VISITOR">
+          <Key>
+            <PropertyRef Name="Visitors_ID" />
+          </Key>
+          <Property Name="Visitors_ID" Type="Int32" Nullable="false" />
+          <Property Name="Visitors_LName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Visitors_Name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Date_Of_Birth" Type="DateTime" Precision="0" />
+          <Property Name="ContactNumber" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="VISITORS_ON_TICKET" Relationship="Database1Model.VISITORS_ON_TICKETVISITOR" FromRole="VISITOR" ToRole="VISITORS_ON_TICKET" />
+        </EntityType>
+        <EntityType Name="VISITORS_ON_TICKET">
+          <Key>
+            <PropertyRef Name="Visitors_on_Ticket_ID" />
+          </Key>
+          <Property Name="Visitors_on_Ticket_ID" Type="Int32" Nullable="false" />
+          <Property Name="Visitors_ID" Type="Int32" />
+          <Property Name="Ticket_ID" Type="Int32" />
+          <Property Name="Ticket_Date" Type="DateTime" Precision="0" />
+          <Property Name="Ticket_Amount" Type="Int32" />
+          <NavigationProperty Name="VISITORs" Relationship="Database1Model.VISITORS_ON_TICKETVISITOR" FromRole="VISITORS_ON_TICKET" ToRole="VISITOR" />
+          <NavigationProperty Name="TICKETs" Relationship="Database1Model.VISITORS_ON_TICKETTICKET" FromRole="VISITORS_ON_TICKET" ToRole="TICKET" />
+        </EntityType>
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ANIMALS" EntityType="Self.ANIMAL" />
+          <EntitySet Name="TICKETS" EntityType="Self.TICKET" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="VISITORS" EntityType="Self.VISITOR" />
+          <EntitySet Name="VISITORS_ON_TICKET" EntityType="Self.VISITORS_ON_TICKET" />
+          <AssociationSet Name="VISITORS_ON_TICKETVISITOR" Association="Database1Model.VISITORS_ON_TICKETVISITOR">
+            <End Role="VISITORS_ON_TICKET" EntitySet="VISITORS_ON_TICKET" />
+            <End Role="VISITOR" EntitySet="VISITORS" />
+          </AssociationSet>
+          <AssociationSet Name="VISITORS_ON_TICKETTICKET" Association="Database1Model.VISITORS_ON_TICKETTICKET">
+            <End Role="VISITORS_ON_TICKET" EntitySet="VISITORS_ON_TICKET" />
+            <End Role="TICKET" EntitySet="TICKETS" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="VISITORS_ON_TICKETVISITOR">
+          <End Type="Database1Model.VISITORS_ON_TICKET" Role="VISITORS_ON_TICKET" Multiplicity="1" />
+          <End Type="Database1Model.VISITOR" Role="VISITOR" Multiplicity="*" />
+        </Association>
+        <Association Name="VISITORS_ON_TICKETTICKET">
+          <End Type="Database1Model.VISITORS_ON_TICKET" Role="VISITORS_ON_TICKET" Multiplicity="1" />
+          <End Type="Database1Model.TICKET" Role="TICKET" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="ANIMALS">
+            <EntityTypeMapping TypeName="Database1Model.ANIMAL">
+              <MappingFragment StoreEntitySet="ANIMALS">
+                <ScalarProperty Name="Animal_ID" ColumnName="Animal_ID" />
+                <ScalarProperty Name="Animal_Name" ColumnName="Animal_Name" />
+                <ScalarProperty Name="Date_Of_Birth" ColumnName="Date_Of_Birth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Vaccination" ColumnName="Vaccination" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TICKETS">
+            <EntityTypeMapping TypeName="Database1Model.TICKET">
+              <MappingFragment StoreEntitySet="TICKETS">
+                <ScalarProperty Name="Ticket_ID" ColumnName="Ticket_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="isTicketValid" ColumnName="isTicketValid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Database1Model.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmployeeType" ColumnName="EmployeeType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISITORS">
+            <EntityTypeMapping TypeName="Database1Model.VISITOR">
+              <MappingFragment StoreEntitySet="VISITORS">
+                <ScalarProperty Name="Visitors_ID" ColumnName="Visitors_ID" />
+                <ScalarProperty Name="Visitors_LName" ColumnName="Visitors_LName" />
+                <ScalarProperty Name="Visitors_Name" ColumnName="Visitors_Name" />
+                <ScalarProperty Name="Date_Of_Birth" ColumnName="Date_Of_Birth" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISITORS_ON_TICKET">
+            <EntityTypeMapping TypeName="Database1Model.VISITORS_ON_TICKET">
+              <MappingFragment StoreEntitySet="VISITORS_ON_TICKET">
+                <ScalarProperty Name="Visitors_on_Ticket_ID" ColumnName="Visitors_on_Ticket_ID" />
+                <ScalarProperty Name="Visitors_ID" ColumnName="Visitors_ID" />
+                <ScalarProperty Name="Ticket_ID" ColumnName="Ticket_ID" />
+                <ScalarProperty Name="Ticket_Date" ColumnName="Ticket_Date" />
+                <ScalarProperty Name="Ticket_Amount" ColumnName="Ticket_Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
